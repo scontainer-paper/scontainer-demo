@@ -1,4 +1,4 @@
-# Dataset, Data Model Implementation, and Prototype System for the Paper "SContainer: A Document Data Model for GUI-Based Schema Building in the Sharing of Generic Scientific Research Data"
+# SContainer: A Document Data Model for GUI-Based Schema Building in the Sharing of Generic Scientific Research Data
 
 ## Requirements
 
