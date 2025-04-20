@@ -1,0 +1,28 @@
+{
+  "type": "object",
+  "properties": {
+    "a": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "b": {
+              "type": "string"
+            },
+            "c": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}

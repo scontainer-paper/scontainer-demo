@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "properties": {
+    "a": {
+      "type": "object",
+      "properties": {
+        "obj": {
+          "type": "object",
+          "properties": {
+            "b": {
+              "type": "string"
+            },
+            "c": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "str": {
+          "type": "string"
+        },
+        "num": {
+          "type": "number"
+        }
+      },
+      "additionalProperties": false,
+      "maxProperties": 1
+    }
+  }
+}
