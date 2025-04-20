@@ -24,7 +24,7 @@
 ## Data Model
 
 - The data model is implemented in the `datamodel` folder.
-- In the `datamodels/examples` folder, you will find 9 examples demonstrating the core concepts of the data model. Run these examples individually to view the results in the console.
+- In the `datamodels/examples` folder, you will find 9 examples demonstrating the core concepts of the data model. Run these examples or play with them and view the results in the console.
 (Make sure to run them after navigating into the `examples` folder, otherwise you'll get a 'No module named datamodel' error.)
 
 ## Prototype GUI
