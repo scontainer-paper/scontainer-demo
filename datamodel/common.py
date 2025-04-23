@@ -129,6 +129,7 @@ def s2path(s: str) -> TYPE_PATH:
     :return:
     """
     res = set()
+    s = s.replace('.', ',')
     if not s.startswith('<') or not s.endswith('>'):
         raise ValueError(f"String {s} does not represent a path")
     for i, char in enumerate(s[1:-1].strip().split(',')):
@@ -139,7 +140,9 @@ def s2path(s: str) -> TYPE_PATH:
     return res
 
 
-def path2s(p: TYPE_PATH) -> str:
+def path2s(p: TYPE_PATH, api=False) -> str:
+    if api:
+        return [str(x[1]) for x in sorted(p)][-1]
     return f"<{','.join([str(x[1]) for x in sorted(p)])}>"
 
 
@@ -184,7 +187,7 @@ def data_to_dict_with_multi_value_option(data: TYPE_DATA | TYPE_ATOMIC_VALUE):
     return res
 
 
-def pprint_template(template: TYPE_TEMPLATE):
+def pprint_template(template: TYPE_TEMPLATE, do_print=True):
     max_field_length = 0
     temp = []
     for field in template:
@@ -195,10 +198,13 @@ def pprint_template(template: TYPE_TEMPLATE):
         field_type = field[1]
         temp.append((ppath, field_type))
     temp.sort(key=lambda x: x[0])
+    res = []
     for ppath, field_type in temp:
-        print(f'{ppath:>{max_field_length}}: {type_name(field_type)}')
+        if do_print:
+            print(f'{ppath:>{max_field_length}}: {type_name(field_type)}')
+        res.append([ppath, field_type])
 
-    # print(f"{ppath}: {type_name(field_type)}")
+    return res
 
 
 def pprint_split_data(d: TYPE_DATA):
@@ -219,7 +225,7 @@ def pprint_flattened_data(d: TYPE_DATA_FLATTENED):
         print(f'{tau[0]}: {tau[1]}')
 
 
-def pprint_nested_template(template: set):
+def pprint_nested_template(template: set, do_print=True, api=False):
     """
     Pretty print a template
     :param template:
@@ -231,14 +237,16 @@ def pprint_nested_template(template: set):
             res = {}
             for child_field in item[1]:
                 res.update(_recursive(child_field))
-            return {path2s(item[0]): res}
+            return {path2s(item[0], api): res}
         else:
-            return {path2s(item[0]): type_name(item[1])}
+            return {path2s(item[0], api): type_name(item[1])}
 
     _dict = {}
     for field in template:
         _dict.update(_recursive(field))
-    print(json.dumps(_dict, indent=2))
+    if do_print:
+        print(json.dumps(_dict, indent=2))
+    return _dict
 
 
 def random_atomic_value(_type: type[TYPE_ATOMIC_VALUE]):

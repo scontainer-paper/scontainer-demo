@@ -108,7 +108,7 @@ function request(op, src, dst, type = null) {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(body)
     }
-    fetch('http://localhost:8000/template/', headers)
+    fetch('/template/', headers)
         .then(response => response.json())
         .then(data => {
             window.localStorage.setItem('scontainer_template', JSON.stringify(data.nested_template))
