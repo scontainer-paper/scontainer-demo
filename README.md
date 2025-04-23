@@ -24,9 +24,12 @@
 ## Data Model
 
 - The data model is implemented in the `datamodel` folder.
-- In the `datamodels/examples` folder, you will find 9 examples demonstrating the core concepts of the data model. Run these examples or play with them and view the results in the console.
-(Make sure to run them after navigating into the `examples` folder, otherwise you'll get a 'No module named datamodel' error.)
+- In the `datamodels/examples` folder, you will find 9 examples demonstrating the core concepts of the data model. Run
+  these examples or play with them and view the results in the console.
+  (Make sure to run them after navigating into the `examples` folder, otherwise you'll get a 'No module named datamodel'
+  error.)
 
 ## Prototype GUI
 
-- *TODO*
+- Run `python manage.py runserver`. Default port is 8000.
+- Open your browser and navigate to `http://localhost:8000/`.
