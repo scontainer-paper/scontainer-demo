@@ -17,6 +17,7 @@ module.exports = function override(config, env) {
             process: "process/browser",
         }),
     );
+    config.alias
 
     return config
 }
