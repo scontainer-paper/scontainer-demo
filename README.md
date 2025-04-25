@@ -33,3 +33,7 @@
 
 - Run `python manage.py runserver`. Default port is 8000.
 - Open your browser and navigate to `http://localhost:8000/`.
+- The whole building process is handled by a single Django API (`scontainer/views.py`), which utilizes the data model
+  implemented in the `datamodel` folder.
+- Containers will be automatically deleted if their child fields have been moved/deleted, as the data model does not
+  allow them to exist without child fields.
