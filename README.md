@@ -31,8 +31,20 @@
 
 ## Prototype GUI
 
-- Run `python manage.py runserver`. Default port is 8000.
-- Open your browser and navigate to `http://localhost:8000/`.
+- Install node.js (>= v18.20.7) and npm (>= v10.8.2).
+- Navigate to the `frontend` folder and run:
+  ```bash
+  npm install
+  ```
+- After the installation is complete, run:
+  ```bash
+    npm start
+  ```
+- Navigate back to the projectroot folder and run:
+  ```bash
+  python manage.py runserver
+  ```
+- Open your browser and navigate to `http://localhost:3000/`.
 - The whole building process is handled by a single Django API (`scontainer/views.py`), which utilizes the data model
   implemented in the `datamodel` folder.
 - Containers will be automatically deleted if their child fields have been moved/deleted, as the data model does not
