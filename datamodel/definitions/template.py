@@ -94,7 +94,6 @@ def deref():
 
 @ret_frozenset
 def Full(tmplt: TYPE_TEMPLATE) -> set:
-    # correction: Definition 16 in the paper misses the "- {pi_1(tau)}" part
     return tmplt | BigUnion(CartesianProduct(Parents(pi_1(tau)) - {pi_1(tau)}, {TYPE_VALUE_CONTAINER}) for tau in tmplt)
 
 
@@ -107,7 +106,6 @@ def E_t(f: TYPE_TEMPLATE_FIELD, t: TYPE_TEMPLATE):
 
 @ret_frozenset
 def Nested_t(tmplt: TYPE_TEMPLATE):
-    # correction: definition of Nested_t in Definition 27 should be E_t(f, Full(tmplt)) rather than E_t(f, tmplt)
     return {E_t(f, Full(tmplt)) for f in Full(tmplt) if len(pi_1(f)) == 1}
 
 
