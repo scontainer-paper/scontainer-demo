@@ -4,22 +4,11 @@
 
 1. Clone the repository.
 2. Create and activate a Python 3.10+ environment.
-3. Navigate to the directory of the cloned repository and run:
+3. (If you want to run the experiment) Navigate to the directory of the cloned repository and run:
 
    ```bash
    pip install -r requirements.txt
    ```
-
-## Experiment
-
-- The `experiments` folder contains the JSON datasets along with the three schemas.
-- To run the experiment, execute `python run_test.py`.
-
-### C++ Experiment
-
-- The C++ code is located in the `experiments/cpp` folder.
-- This is a CMake project. You can either build it using CMake or run it directly in CLion.
-- Please update the dataset path in `main.cpp` (line 13) to point to the location of your local datasets.
 
 ## Data Model
 
@@ -31,21 +20,24 @@
 
 ## Prototype GUI
 
-- Install node.js (>= v18.20.7) and npm (>= v10.8.2).
-- Navigate to the `frontend` folder and run:
+- Navigate to the root folder (the folder containing the folder "prototype") and run:
   ```bash
-  npm install
+  python -m http.server 5173 --directory prototype
   ```
-- After the installation is complete, run:
-  ```bash
-    npm start
-  ```
-- Navigate back to the projectroot folder and run:
-  ```bash
-  python manage.py runserver
-  ```
-- Open your browser and navigate to `http://localhost:3000/`.
-- The whole building process is handled by a single Django API (`scontainer/views.py`), which utilizes the data model
-  implemented in the `datamodel` folder.
-- Containers will be automatically deleted if their child fields have been moved/deleted, as the data model does not
-  allow them to exist without child fields.
+- Open your browser and navigate to `http://127.0.0.1:5173/`.
+
+## User Study
+
+- The schemas used in the user study are in the Markdown file `userstudy/schemas.md`.
+- The raw results of the user study are in `userstudy/results.xlsx`.
+
+## Experiment
+
+- The `experiments` folder contains the JSON datasets along with the three schemas.
+- To run the experiment, execute `python run_test.py`.
+
+### C++ Experiment
+
+- The C++ code is located in the `experiments/cpp` folder.
+- This is a CMake project. You can either build it using CMake or run it directly in CLion.
+- Please update the dataset path in `main.cpp` (line 13) to point to the location of the datasets (your local path).

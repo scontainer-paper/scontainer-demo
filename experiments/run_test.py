@@ -1,6 +1,5 @@
 import json
 import random
-import sys
 import time
 
 from jsonschema import exceptions
