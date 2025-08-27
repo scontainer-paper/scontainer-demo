@@ -1,0 +1,10 @@
+# ninja log v6
+1	79	7780012115818771	json-schema-validator/CMakeFiles/nlohmann_json_schema_validator.dir/src/smtp-address-validator.cpp.obj	65226e846d016e1e
+10	1016	7780012115908768	json-schema-validator/CMakeFiles/nlohmann_json_schema_validator.dir/src/json-uri.cpp.obj	ddaed93a652d2a48
+6	1442	7780012115868770	json-schema-validator/CMakeFiles/nlohmann_json_schema_validator.dir/src/json-schema-draft7.json.cpp.obj	fb3b8a616badccc3
+27	1515	7780012116083380	CMakeFiles/scontainer_cpp.dir/main.cpp.obj	9feb0e1a2b602d0e
+19	1822	7780012115991596	json-schema-validator/CMakeFiles/nlohmann_json_schema_validator.dir/src/json-patch.cpp.obj	a7f89567d66f819f
+23	2208	7780012116031599	json-schema-validator/CMakeFiles/nlohmann_json_schema_validator.dir/src/string-format-check.cpp.obj	29776afb03963285
+14	4540	7780012115946485	json-schema-validator/CMakeFiles/nlohmann_json_schema_validator.dir/src/json-validator.cpp.obj	3e6e265399d9ba75
+4540	9458	7780012161208635	json-schema-validator/libnlohmann_json_schema_validator.a	5a9828f7108dfd72
+9458	13949	7780012210385330	scontainer_cpp.exe	7e22dd9227df09fe
