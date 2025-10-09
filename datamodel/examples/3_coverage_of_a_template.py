@@ -29,7 +29,7 @@ def eg_coverage_of_a_template():
     print('Sample Flattened (split): ')
     pprint(flattened_d)
     print('--' * 50)
-    print('Pretty print sample flattened (split): ')
+    print('Pretty print sample flattened: ')
     pprint_flattened_data(flattened_d)
     print('--' * 50)
 
