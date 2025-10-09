@@ -24,7 +24,7 @@ def eg_coverage_of_a_template():
     # DataFlatten will call DataSplit again with different random values,
     # so we patch DataSplit to return the data above for consistency
     mock = MagicMock(return_value=data_split)
-    with patch('definitions.template.DataSplit', mock):
+    with patch('datamodel.definitions.template.DataSplit', mock):
         flattened_d = DataFlatten(template)
     print('Sample Flattened (split): ')
     pprint(flattened_d)
