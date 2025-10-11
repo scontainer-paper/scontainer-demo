@@ -1,5 +1,5 @@
 # SContainer: A Document Data Model for GUI-Based Schema Building in the Sharing of Generic Scientific Research Data
-# PLEASE RE-CLONE THIS REPO IF YOU CLONED IT BEFORE Oct 10, 2025 12:35 PM UTC+8, AS THERE WAS A FIX ON THE "No module named datamodel" ERROR.
+# PLEASE RE-CLONE THIS REPO OR UPDATE BY PULLING IF YOU CLONED IT BEFORE Oct 9, 2025 12:35 PM UTC, AS THERE WAS A FIX ON THE "No module named datamodel" ERROR.
 ## Requirements
 
 1. Clone the repository.
