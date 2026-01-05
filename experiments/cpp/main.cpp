@@ -10,7 +10,7 @@ using nlohmann::json_schema::json_validator;
 #define STRINGIFY(x) #x
 #define TOSTRING(x) STRINGIFY(x)
 // POINT TO THE PATH OF WHERE THE DATASETS ARE LOCATED
-#define DATASET_PATH "C:\\Users\\XXXXXXXXX\\CLionProjects\\scontainer-cpp\\datasets"
+#define DATASET_PATH "C:\\Users\\Harold\\PycharmProjects\\scontainer\\experiments\\datasets"
 
 struct Result {
     double load_time_variable;
@@ -121,7 +121,6 @@ int main() {
     // time the loading of the data
     for (int batch_size: {10000, 50000, 100000, 300000, 500000, 700000, 1000000}) {
         auto result = run(batch_size);
-        // tabular results
         // std::cout << std::fixed << std::setprecision(3) << result.load_time_variable << '\t'
         //         << result.load_time_fixed << '\t'
         //         << result.validation_time_variable << '\t'

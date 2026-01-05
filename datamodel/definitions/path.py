@@ -1,12 +1,12 @@
 from datamodel.common import *
 from datamodel.common import ret_frozenset
-from datamodel.definitions.preliminaries import pi_2, Pi_1, pi_1
+from datamodel.definitions.preliminaries import Pi_1
 
 
-def sigma(at: int, components: TYPE_PATH) -> TYPE_VALUE_STR | type[EMPTY_SET]:
-    for component in components:
-        if pi_1(component) == at:
-            return pi_2(component)
+def sigma(at: int, p: TYPE_PATH) -> TYPE_VALUE_STR | type[EMPTY_SET]:
+    S = {v for (i, v) in p if i == at}
+    if len(S) == 1:
+        return S.pop()
     return EMPTY_SET
 
 
@@ -18,10 +18,10 @@ def assert_is_path(x: TYPE_PATH):
     if len(x) != max(Pi_1(x)):
         raise AssertionError(f"Indices are not consecutive")
     indices = set()
-    for t in x:
-        if pi_1(t) in indices:
-            raise AssertionError(f"Index {pi_1(t)} is not unique")
-        indices.add(pi_1(t))
+    for (i, v) in x:
+        if i in indices:
+            raise AssertionError(f"Index {i} is not unique")
+        indices.add(i)
 
 
 def assert_is_data_path(p: TYPE_PATH):
@@ -50,14 +50,14 @@ def assert_is_index_path(p: TYPE_PATH):
 @ret_frozenset
 def Parent_D(x: TYPE_PATH) -> TYPE_PATH:
     assert_is_path(x)
-    return x - {(len(x), sigma(len(x), x))} | {(1, sigma(1, x))}
+    return (x - {(len(x), sigma(len(x), x))}) | {(1, sigma(1, x))}
 
 
 @ret_frozenset
 def Concat(x: TYPE_PATH, y: TYPE_PATH) -> TYPE_PATH:
     assert_is_path(x)
     assert_is_path(y)
-    return x | {(pi_1(t) + len(x), pi_2(t)) for t in y}
+    return x | {(i + len(x), v) for (i, v) in y}
 
 
 @ret_frozenset
@@ -65,7 +65,7 @@ def Sub(x: TYPE_PATH, y: TYPE_PATH) -> TYPE_PATH:
     assert_is_path(x)
     assert_is_path(y)
     if y.issubset(x) and y != x:
-        return {(pi_1(t) - len(y), pi_2(t)) for t in x - y}
+        return {(i - len(y), v) for (i, v) in x - y}
     else:
         return x
 

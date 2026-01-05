@@ -1,4 +1,4 @@
-from datamodel.common import TYPE_COMPONENTS, TYPE_VALUE_STR, TYPE_VALUE_NUM, TYPE_VALUE_BOOL, TYPE_VALUE_CONTAINER, \
+from datamodel.common import TYPE_ARRAY, TYPE_VALUE_STR, TYPE_VALUE_NUM, TYPE_VALUE_BOOL, TYPE_VALUE_CONTAINER, \
     ret_frozenset
 
 
@@ -8,24 +8,16 @@ from datamodel.common import TYPE_COMPONENTS, TYPE_VALUE_STR, TYPE_VALUE_NUM, TY
 #     return chain.from_iterable(combinations(s, r) for r in range(len(s) + 1))
 
 
-def pi_1(pair: tuple):
-    return pair[0]
-
-
-def pi_2(pair: tuple):
-    return pair[1]
+@ret_frozenset
+def Pi_1(pairs: set[tuple[int, TYPE_ARRAY]]) -> set[
+    TYPE_VALUE_STR | TYPE_VALUE_NUM | TYPE_VALUE_BOOL | TYPE_VALUE_CONTAINER]:
+    return {a for (a, b) in pairs}
 
 
 @ret_frozenset
-def Pi_1(pair: tuple[int, TYPE_COMPONENTS]) -> set[
+def Pi_2(pairs: set[tuple[int, TYPE_ARRAY]]) -> set[
     TYPE_VALUE_STR | TYPE_VALUE_NUM | TYPE_VALUE_BOOL | TYPE_VALUE_CONTAINER]:
-    return {pi_1(x) for x in pair}
-
-
-@ret_frozenset
-def Pi_2(pair: tuple[int, TYPE_COMPONENTS]) -> set[
-    TYPE_VALUE_STR | TYPE_VALUE_NUM | TYPE_VALUE_BOOL | TYPE_VALUE_CONTAINER]:
-    return {pi_2(x) for x in pair}
+    return {b for (a, b) in pairs}
 
 
 @ret_frozenset

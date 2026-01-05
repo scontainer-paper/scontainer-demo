@@ -1,53 +1,39 @@
 from datamodel.definitions.path import *
 from datamodel.definitions.preliminaries import CartesianProduct
 
-
-def H(i: TYPE_VALUE_INT, tau: tuple) -> TYPE_DATA_FLATTENED:
-    if not TypeEquals(pi_2(tau), TYPE_ATOMIC_VALUE):
-        h_i_plus_1_tau = H(i + 1, pi_2(tau))
-        return (frozenset({(i, pi_1(tau))}) | pi_1(h_i_plus_1_tau), pi_2(h_i_plus_1_tau))
+def H(n: TYPE_VALUE_INT, kv: tuple) -> TYPE_DATA_FLATTENED:
+    k, v = kv
+    if not TypeEquals(v, TYPE_ATOMIC_VALUE):
+        S, x = H(n + 1, v)
+        return (frozenset({(n, k)} | S), x)
     else:
-        return (frozenset({(i, pi_1(tau))}), pi_2(tau))
+        return (frozenset({(n, k)}), v)
 
 
 @ret_frozenset
-def G(d: TYPE_COMPONENTS | TYPE_DATA | TYPE_ATOMIC_VALUE) -> set | frozenset:
+def G(d: TYPE_ARRAY | TYPE_DOCUMENT | TYPE_ATOMIC_VALUE) -> set | frozenset:
     if TypeEquals(d, TYPE_ATOMIC_VALUE):
         return {d}
     else:
-        return BigUnion(CartesianProduct({pi_1(tau)}, G(pi_2(tau))) for tau in d)
+        return BigUnion(CartesianProduct({k}, G(v)) for (k, v) in d)
+
+
+def K(df: TYPE_DATA_FLATTENED) -> set:
+    return {sigma(1, pd) for (pd, v) in df}
 
 
 @ret_frozenset
-def R_sigma_n(n: int, df: TYPE_DATA_FLATTENED) -> TYPE_RELATION:
-    return {(x, y) for x in df for y in df if sigma(n, pi_1(x)) == sigma(n, pi_1(y)) and sigma(n, pi_1(x)) != EMPTY_SET}
+def Nested(df: TYPE_DATA_FLATTENED) -> set:
+    result = set()
+    for n in K(df):
+        if any(len(pd) == 1 for (pd, v) in df):
+            # result |= CartesianProduct({n}, {(sigma(1, pd), v) for (pd, v) in df})
+            result |= {(sigma(1, pd), v) for (pd, v) in df}
+        else:
+            result |= CartesianProduct({n}, {Nested({(Sub(pd, {(1, n)}), v) for (pd, v) in df if sigma(1, pd) == n})})
+    return result
 
 
 @ret_frozenset
-def equivalent_class(t: tuple[TYPE_PATH_DATA, TYPE_ATOMIC_VALUE], R: TYPE_RELATION) -> TYPE_DATA_FLATTENED:
-    return {pi_2(relation_pair) for relation_pair in R if pi_1(pi_1(relation_pair)) == pi_1(t)}
-
-
-@ret_frozenset
-def E_n(n: int, f: TYPE_DATA_FLATTENED):
-    R_sigma_n_plus_1 = R_sigma_n(n + 1, f)
-    if R_sigma_n_plus_1 == EMPTY_SET:
-        return {(sigma(n, pi_1(t)), pi_2(t)) for t in f}
-    else:
-        singleton = BigUnion({sigma(n, pi_1(t))} for t in f)
-        assert len(singleton) == 1, "The union of {sigma_n(pi_1(t))} for all t in f is not a singleton"
-
-        union = BigUnion(E_n(n + 1, equivalent_class(t, R_sigma_n_plus_1)) for t in f)
-        singleton = frozenset(singleton)
-        return CartesianProduct(singleton, frozenset({union}))
-
-
-@ret_frozenset
-def Nested(d: TYPE_DATA_FLATTENED) -> TYPE_DATA:
-    equivalence_relation = R_sigma_n(1, d)
-    return BigUnion(E_n(1, equivalent_class(t, equivalence_relation)) for t in d)
-
-
-@ret_frozenset
-def flatten(d: TYPE_DATA) -> TYPE_DATA_FLATTENED:
-    return {H(1, tau) for tau in G(d)}
+def flatten(d: TYPE_DOCUMENT) -> TYPE_DATA_FLATTENED:
+    return {H(1, (k, v)) for (k, v) in G(d)}

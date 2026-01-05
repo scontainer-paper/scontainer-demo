@@ -15,10 +15,10 @@ TYPE_VALUE_NUM = int | float
 TYPE_VALUE_BOOL = bool
 TYPE_POSITIVE_INT = int
 TYPE_ATOMIC_VALUE = TYPE_VALUE_STR | TYPE_VALUE_NUM | TYPE_VALUE_BOOL
-TYPE_COMPONENTS = set[
+TYPE_ARRAY = set[
     tuple[int, TYPE_VALUE_NUM | TYPE_VALUE_STR | TYPE_VALUE_BOOL | _Type['TYPE_VALUE_CONTAINER']]]
-TYPE_VALUE_CONTAINER = set[tuple[str, set[TYPE_COMPONENTS]]]
-TYPE_DATA = TYPE_VALUE_CONTAINER  # A piece of data is just the field value of a container (Definition 4)
+TYPE_VALUE_CONTAINER = set[tuple[str, set[TYPE_ARRAY]]]
+TYPE_DOCUMENT = TYPE_VALUE_CONTAINER  # A piece of data is just the field value of a container (Definition 4)
 TYPE_DATA_FLATTENED = set[tuple[TYPE_PATH_DATA, TYPE_VALUE_STR | TYPE_VALUE_NUM | TYPE_VALUE_BOOL]]
 TYPE_DATA_SPLIT = set[
     tuple[tuple[TYPE_PATH_TEMPLATE], TYPE_PATH_INDEX], TYPE_VALUE_STR | TYPE_VALUE_NUM | TYPE_VALUE_BOOL]
@@ -146,7 +146,7 @@ def path2s(p: TYPE_PATH, api=False) -> str:
     return f"<{','.join([str(x[1]) for x in sorted(p)])}>"
 
 
-def data_to_dict(data: TYPE_DATA | TYPE_ATOMIC_VALUE) -> dict | TYPE_ATOMIC_VALUE:
+def data_to_dict(data: TYPE_DOCUMENT | TYPE_ATOMIC_VALUE) -> dict | TYPE_ATOMIC_VALUE:
     res = {}
     for field in data:
         children = []
@@ -165,7 +165,7 @@ def data_to_dict(data: TYPE_DATA | TYPE_ATOMIC_VALUE) -> dict | TYPE_ATOMIC_VALU
     return res
 
 
-def data_to_dict_with_multi_value_option(data: TYPE_DATA | TYPE_ATOMIC_VALUE):
+def data_to_dict_with_multi_value_option(data: TYPE_DOCUMENT | TYPE_ATOMIC_VALUE):
     res = {}
     for field in data:
         children = []
@@ -207,7 +207,7 @@ def pprint_template(template: TYPE_TEMPLATE, do_print=True):
     return res
 
 
-def pprint_split_data(d: TYPE_DATA):
+def pprint_split_data(d: TYPE_DOCUMENT):
     res = []
     for (pT, I), value in d:
         res.append(((path2s(pT), path2s(I)), value))
@@ -281,3 +281,6 @@ def split_data_to_dict(data: TYPE_DATA_SPLIT, format=False) -> dict | str:
     for item in sorted_res:
         res_str += f"({item[0][0]}, {item[0][1]}): {item[1]}\n"
     return res_str
+
+def pprint_nested_data():
+    pass

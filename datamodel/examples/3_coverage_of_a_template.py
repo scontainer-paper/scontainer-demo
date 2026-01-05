@@ -1,6 +1,8 @@
 import sys
 from pathlib import Path
 
+from datamodel.definitions.data import Nested
+
 sys.path.append(str(Path(__file__).resolve().parent.parent.parent))
 from unittest.mock import MagicMock, patch
 from datamodel.definitions.template import *
@@ -25,13 +27,15 @@ def eg_coverage_of_a_template():
     # so we patch DataSplit to return the data above for consistency
     mock = MagicMock(return_value=data_split)
     with patch('datamodel.definitions.template.DataSplit', mock):
-        flattened_d = DataFlatten(template)
+        flattened_d = DataFlattenedSample(template, 3)
     print('Sample Flattened (split): ')
     pprint(flattened_d)
     print('--' * 50)
     print('Pretty print sample flattened: ')
     pprint_flattened_data(flattened_d)
     print('--' * 50)
+    print('Sample data nested: ')
+    pprint(Nested(flattened_d))
 
 
 if __name__ == "__main__":

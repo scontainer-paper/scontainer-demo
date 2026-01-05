@@ -6,7 +6,7 @@ from datamodel.definitions.data import *
 
 
 def eg_flatten_and_unflatten_a_document():
-    # we'll first use unflatten to create a document as it's cumbersome to compose a document by hand
+    # we first use unflatten to create a document as it's cumbersome to compose a nested document by hand
     d = {
         (s2path("<a,1,b,1,c,1>"), 1),
         (s2path("<a,1,b,1,c,2>"), 1.2),
@@ -16,7 +16,6 @@ def eg_flatten_and_unflatten_a_document():
         (s2path("<a,2,e,1>"), True),
         (s2path("<f,1>"), "world"),
     }
-
     # unflatten the data
     d = Nested(d)
     print('Original Document: ')
